@@ -1,0 +1,24 @@
+# Build outputs
+build/
+bin/
+*.o
+*.out
+*.exe
+
+# Test outputs
+tests/output/
+
+# Generated PGM outputs
+*_out.pgm
+out.pgm
+assembled.pgm
+tile_*.pgm
+
+# Editor / OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log

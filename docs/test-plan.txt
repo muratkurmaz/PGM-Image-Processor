@@ -1,0 +1,368 @@
+Before all the programs are written, I start by writing the main modules that will be common to all of them.
+These are modules for reading and writing the pgm file. First, I will write the readPgm documentation and helper modules.
+These helper modules will be used to allocate memory and pass comments.
+Then I read a pgm file with a size of 13 * 13 with readPgm and printed the information on the screen.
+After making sure that the output in the terminal and the content of the pgm file are the same, I proceed to write the writePgm module.
+I wrote a simple pgmEcho program to test that it works properly.
+I made comparisons by looking at the content of two images encoded as ascii with Notped++.
+Thus, I have obtained a main library that I can use in all my other pgm programs.
+Now it's time to add different pgm modules to this library that I will use in other programs.
+I have to test with wrong argument entries for every program I write. All passed the test.
+At the same time, I tested the programs to give a warning by giving a corrupt file to each program.
+
+
+
+=============================================================================
+The test plan below applies to all programs.
+=============================================================================
+
+1. Test missing argument
+
+
+Input: 
+    ./pgmEcho b.pgm  
+
+Expected output: 
+    an error message showing how to use
+
+Conclusion:
+	passed
+
+=============================================================================
+
+
+2. Test input a file that does not exist
+
+
+Input: 
+    ./pgmEcho d.pgm out.pgm  
+
+Expected output: 
+    ERROR: Bad File Name <filen>
+
+Conclusion:
+	passed
+
+
+=============================================================================
+
+
+3. Test giving a file that is not in P2 or P5 format as input
+
+
+Input: 
+    ./pgmEcho a.pgm out.pgm  
+
+Expected output: 
+    ERROR: Bad Magic Number <filen>
+
+Conclusion:
+	We changed the P2 format in the a.pgm file to P3. Then the program was run. and passed
+
+=============================================================================
+
+
+4. Test missing information in the file form
+
+a.pgm dosyasındaki sırasıyla dosya formatı, maxGry, yükseklik ve genişlik boyutları kaldırılıp hatalı dosya üretilmiştir. Proğrama bu hatalı dosya input olarak verilmiştir. 
+
+Input: 
+    ./pgmEcho a.pgm out.pgm  
+
+Expected output: 
+    ERROR: Bad Data <filen>
+
+Conclusion:
+	error message received. the program passed the test
+
+=============================================================================
+
+
+5. Test wrong size
+
+Incorrect size was entered in the a.pgm file given as input. 
+
+Input: 
+    ./pgmEcho a.pgm out.pgm  
+
+Expected output: 
+    ERROR: Bad Dimensions <filen>
+
+Conclusion:
+	error message received. the program passed the test
+
+=============================================================================
+
+
+5. Test wrong maxGray
+
+Incorrect maxGray was entered in the a.pgm file given as input. 
+
+Input: 
+    ./pgmEcho a.pgm out.pgm  
+
+Expected output: 
+    ERROR: Bad Max Gray Value <filen>
+
+Conclusion:
+	error message received. the program passed the test
+
+=============================================================================
+
+
+
+
+=============================================================================
+All test plan is executed when executing pgmEcho.
+=============================================================================
+
+1. Test ASCII pgm file
+
+./pgmEcho a.pgm out.pgm
+
+Input: a.pgm file encoded as ascii 
+
+Expected output: ECHOED
+	Creating a file named out.pgm exactly the same as a.pgm
+ 
+Conclusion: ECHOED
+	The out.pgm file has been created
+
+=============================================================================
+2. Test Binary pgm file
+
+./pgmEcho b.pgm out.pgm
+
+Input: b.pgm file encoded as binary 
+
+Expected output: ECHOED
+	Creating a file named out.pgm exactly the same as b.pgm
+ 
+Conclusion: ECHOED
+	The out.pgm file has been created
+
+=============================================================================
+
+
+
+
+=============================================================================
+All test plan is executed when executing pgmTile.
+=============================================================================
+
+1. Test ASCII pgm file
+
+./pgmTile a.pgm 3 out.pgm
+
+Input: a.pgm file encoded as ascii 
+
+Expected output: TILED
+ 
+Conclusion: TILED
+	Created 9 correctly fragmented out files
+
+=============================================================================
+2. Test Binary pgm file
+
+./pgmTile b.pgm 3 out.pgm
+
+Input: b.pgm file encoded as binary 
+
+Expected output: TILED
+ 
+Conclusion: TILED
+	Created 9 correctly fragmented out files
+
+=============================================================================
+
+
+
+
+=============================================================================
+All test plan is executed when executing pgmReduce.
+=============================================================================
+
+1. Test ASCII pgm file
+
+./pgmReduce a.pgm 3 out.pgm
+
+Input: a.pgm file encoded as ascii 
+
+Expected output: REDUCED
+	
+Conclusion: REDUCED
+	Created out.pgm minimized at the desired rate
+
+=============================================================================
+2. Test Binary pgm file
+
+./pgmReduce b.pgm 3 out.pgm
+
+Input: b.pgm file encoded as binary 
+
+Expected output: REDUCED
+ 
+Conclusion: REDUCED
+	Created out.pgm minimized at the desired rate
+
+=============================================================================
+
+
+
+
+=============================================================================
+All test plan is executed when executing pgmComp.
+=============================================================================
+
+1. Test 2 comp ASCII pgm file
+
+./pgmComp a.pgm a.pgm
+
+Input: a.pgm file encoded as ascii 
+
+Expected output: IDENTICAL
+	Creating a file named out.pgm exactly the same as a.pgm
+ 
+Conclusion: IDENTICAL
+	The out.pgm file has been created
+
+=============================================================================
+2. Test 2 comp Binary pgm file
+
+./pgmComp b.pgm b.pgm
+
+Input: b.pgm file encoded as binary 
+
+Expected output: IDENTICAL
+	Creating a file named out.pgm exactly the same as b.pgm
+ 
+Conclusion: IDENTICAL
+	The out.pgm file has been created
+
+=============================================================================
+
+3. Test 2 not comp ASCII pgm file
+
+./pgmComp a.pgm d.pgm
+
+Input: a.pgm and d.pgm file encoded as ascii 
+
+Expected output: DIFFERENT
+	Creating a file named out.pgm exactly the same as a.pgm
+ 
+Conclusion: DIFFERENT
+	The out.pgm file has been created
+
+=============================================================================
+4. Test 2 not comp Binary pgm file
+
+./pgmComp b.pgm d.pgm
+
+Input: b.pgm and d.pgm file encoded as binary 
+
+Expected output: DIFFERENT
+	Creating a file named out.pgm exactly the same as b.pgm
+ 
+Conclusion: DIFFERENT
+	The out.pgm file has been created
+
+=============================================================================
+
+
+
+
+=============================================================================
+All test plan is executed when executing pgma2b.
+=============================================================================
+
+1. Test ASCII pgm file
+
+./pgma2b a.pgm out.pgm
+
+Input: a.pgm file encoded as ascii 
+
+Expected output: CONVERTED
+ 
+Conclusion: CONVERTED
+	created out.pgm encoded in binary
+
+=============================================================================
+
+
+
+=============================================================================
+All test plan is executed when executing pgmb2a.
+=============================================================================
+
+1. Test binary pgm file
+
+./pgmb2a b.pgm out.pgm
+
+Input: a.pgm file encoded as ascii 
+
+Expected output: CONVERTED
+ 
+Conclusion: CONVERTED
+	created out.pgm encoded in ASCII
+
+=============================================================================
+
+
+
+=============================================================================
+All test plan is executed when executing pgmAssemble.
+=============================================================================
+
+1. Test ASCII pgm file
+
+./pgmAssemble out.pgm 1000 700 0 0 a.pgm_0_0.pgm 0 1 a.pgm_0_1.pgm 0 2 a.pgm_0_2.pgm 1 0 a.pgm_1_0.pgm 2 0 a.pgm_2_0.pgm
+
+Input: *.pgm files encoded as ascii 
+
+Expected output: ASSEMBLED
+	
+Conclusion: ASSEMBLED
+	Correctly combined out.pgm file of desired size has been created
+
+=============================================================================
+
+2. Test Binary pgm file
+
+./pgmAssemble out.pgm 500 800 0 0 b.pgm_0_0.pgm 0 1 b.pgm_0_1.pgm 0 2 b.pgm_0_2.pgm 1 0 b.pgm_1_0.pgm 2 0 b.pgm_2_0.pgm
+
+Input: *.pgm files encoded as binary 
+
+Expected output: ASSEMBLED
+ 
+Conclusion: ASSEMBLED
+	Correctly combined out.pgm file of desired size has been created
+
+=============================================================================
+
+3. Test entering files in the same location
+
+./pgmAssemble out.pgm 1000 700 0 0 a.pgm_0_0.pgm 0 1 a.pgm_0_1.pgm 0 2 a.pgm_0_2.pgm 1 0 a.pgm_1_0.pgm 0 0 a.pgm_2_0.pgm
+
+Input: *.pgm files encoded as ASCII 
+
+Expected output: ERROR: Bad Layout
+ 
+Conclusion: ERROR: Bad Layout
+	passed
+
+=============================================================================
+
+3. Test non-number argument
+
+The program has been tested if the height, width, row or col values are anything other than numbers.
+
+./pgmAssemble out.pgm 1000 asd 0 0 a.pgm_0_0.pgm a 1 a.pgm_0_1.pgm kj 2 a.pgm_0_2.pgm 1 0 a.pgm_1_0.pgm 0 0 a.pgm_2_0.pgm
+
+Input: *.pgm files encoded as ASCII 
+
+Expected output: ERROR: Bad Argument Count
+ 
+Conclusion: ERROR: ERROR: Bad Argument Count
+	passed
+
+=============================================================================
