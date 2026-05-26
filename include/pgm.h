@@ -25,7 +25,7 @@ typedef struct pgm{
 	int width;
 	int maxGray;
 	char version[3];
-	char format[6];
+	char format[16];
 	unsigned char **matrix;
 }PGM;
 
